@@ -10,7 +10,7 @@ or use the `join fetch` when explicitly writing a query:
 	@Query("select p from Person p left join fetch p.cars")
 	List<Person> findWithQuery();
 
-But in this case we get duplicate number of 'parent' entities in the returned List<Person>.
+But in this case we get duplicate number of 'parent' entities in the returned list of Persons.
 
 To work around this issue we can use 'distinct' in the method name or in the query, for example:
 
