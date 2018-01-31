@@ -20,7 +20,7 @@ import static java.util.Arrays.asList;
 /**
  * @author Cepr0, 2018-01-05
  */
-@Profile("dev")
+@Profile("!test")
 @RequiredArgsConstructor
 @Component
 public class DemoData {
