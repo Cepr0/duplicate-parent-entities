@@ -15,7 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Sergei Poznanski, 2018-01-30
+ * @author Cepr0, 2018-01-30
  */
 @ActiveProfiles("test")
 @Transactional
