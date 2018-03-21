@@ -1,10 +1,6 @@
 package io.github.cepr0.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.domain.Persistable;
+import lombok.Data;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,28 +11,15 @@ import java.io.Serializable;
 /**
  * @author Cepr0, 2018-01-14
  */
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @MappedSuperclass
-public class BaseEntity implements Persistable<Integer> {
+public class BaseEntity implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private Integer id = null;
-
-	@JsonIgnore
-	@Version
-	private long version;
+	@Id @GeneratedValue private Integer id;
+	@Version private long version;
 
 	@Override
 	public String toString() {
 		return "{id=" + id + "}";
-	}
-
-	@JsonIgnore
-	@Override
-	public boolean isNew() {
-		return getId() == null;
 	}
 }

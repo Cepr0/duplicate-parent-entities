@@ -1,11 +1,9 @@
 package io.github.cepr0.demo;
 
-import io.github.cepr0.demo.model.Car;
-import io.github.cepr0.demo.model.Person;
-import io.github.cepr0.demo.repo.CarRepo;
-import io.github.cepr0.demo.repo.PersonRepo;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import io.github.cepr0.demo.model.Child;
+import io.github.cepr0.demo.model.Parent;
+import io.github.cepr0.demo.repo.ChildRepo;
+import io.github.cepr0.demo.repo.ParentRepo;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
@@ -19,25 +17,29 @@ import static java.util.Arrays.asList;
  * @author Cepr0, 2018-01-05
  */
 @Profile("test")
-@RequiredArgsConstructor
 @Component
 public class TestData {
 
-	@NonNull private final PersonRepo personRepo;
-	@NonNull private final CarRepo carRepo;
+	private final ParentRepo parentRepo;
+	private final ChildRepo childRepo;
+
+	public TestData(ParentRepo parentRepo, ChildRepo childRepo) {
+		this.parentRepo = parentRepo;
+		this.childRepo = childRepo;
+	}
 
 	@EventListener
 	public void appReady(ApplicationReadyEvent event) {
-		List<Person> people = personRepo.save(asList(
-				Person.of("TestPerson1", "TestAddress1"),
-				Person.of("TestPerson2", "TestAddress2")
+		List<Parent> parents = parentRepo.saveAll(asList(
+				new Parent("Parent1"),
+				new Parent("Parent2"),
+				new Parent("Parent3")
 		));
 
-		carRepo.save(asList(
-				Car.of("TestCar1", "TestBrand1").setPerson(people.get(0)),
-				Car.of("TestCar2", "TestBrand2").setPerson(people.get(0)),
-				Car.of("TestCar3", "TestBrand1").setPerson(people.get(1)),
-				Car.of("TestCar4", "TestBrand2").setPerson(people.get(1))
+		childRepo.saveAll(asList(
+				new Child("Child1", parents.get(0)),
+				new Child("Child2", parents.get(1)),
+				new Child("Child3", parents.get(1))
 		));
 	}
 }
